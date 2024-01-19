@@ -1,0 +1,28 @@
+{
+    "Profiles": [
+        {
+
+            "name": "Profile1",
+            "description": "Description1",
+            "adapterName": "イーサネット",
+            "ipAddress": "192.168.0.23",
+            "netMask": "255.255.255.0",
+            "gatewayAddress": "192.168.0.254",
+            "dns": [ "8.8.8.8", "8.8.4.4" ]
+
+        },
+        {
+
+            "name": "Profile2",
+            "description": "Description2",
+            "adapterName": "イーサネット",
+            "ipAddress": "192.168.1.23",
+            "netMask": "255.255.255.0",
+            "gatewayAddress": "192.168.1.254",
+            "dns": [ "8.8.8.8", "8.8.4.4" ]
+
+        }
+
+    ]
+
+}
