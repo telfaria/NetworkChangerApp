@@ -31,46 +31,90 @@
             cboNetworAdapters = new ComboBox();
             txtNetworkAdapterSettings = new TextBox();
             cboProfiles = new ComboBox();
+            txtProfilesDetail = new TextBox();
+            txtCommandResult = new TextBox();
+            btnApply = new Button();
             SuspendLayout();
             // 
             // cboNetworAdapters
             // 
             cboNetworAdapters.DropDownStyle = ComboBoxStyle.DropDownList;
             cboNetworAdapters.FormattingEnabled = true;
-            cboNetworAdapters.Location = new Point(12, 29);
+            cboNetworAdapters.Location = new Point(19, 48);
+            cboNetworAdapters.Margin = new Padding(5, 5, 5, 5);
             cboNetworAdapters.Name = "cboNetworAdapters";
-            cboNetworAdapters.Size = new Size(220, 23);
+            cboNetworAdapters.Size = new Size(343, 33);
             cboNetworAdapters.TabIndex = 0;
             cboNetworAdapters.SelectedIndexChanged += cboNetworAdapters_SelectedIndexChanged;
             // 
             // txtNetworkAdapterSettings
             // 
-            txtNetworkAdapterSettings.Location = new Point(12, 58);
+            txtNetworkAdapterSettings.Location = new Point(19, 97);
+            txtNetworkAdapterSettings.Margin = new Padding(5, 5, 5, 5);
             txtNetworkAdapterSettings.Multiline = true;
             txtNetworkAdapterSettings.Name = "txtNetworkAdapterSettings";
             txtNetworkAdapterSettings.ReadOnly = true;
             txtNetworkAdapterSettings.ScrollBars = ScrollBars.Both;
-            txtNetworkAdapterSettings.Size = new Size(220, 158);
+            txtNetworkAdapterSettings.Size = new Size(343, 261);
             txtNetworkAdapterSettings.TabIndex = 1;
             // 
             // cboProfiles
             // 
             cboProfiles.DropDownStyle = ComboBoxStyle.DropDownList;
             cboProfiles.FormattingEnabled = true;
-            cboProfiles.Location = new Point(283, 29);
+            cboProfiles.Location = new Point(445, 48);
+            cboProfiles.Margin = new Padding(5, 5, 5, 5);
             cboProfiles.Name = "cboProfiles";
-            cboProfiles.Size = new Size(220, 23);
+            cboProfiles.Size = new Size(343, 33);
             cboProfiles.TabIndex = 0;
-            cboProfiles.SelectedIndexChanged += cboNetworAdapters_SelectedIndexChanged;
+            cboProfiles.SelectedIndexChanged += cboProfiles_SelectedIndexChanged;
+            // 
+            // txtProfilesDetail
+            // 
+            txtProfilesDetail.Location = new Point(445, 97);
+            txtProfilesDetail.Margin = new Padding(5, 5, 5, 5);
+            txtProfilesDetail.Multiline = true;
+            txtProfilesDetail.Name = "txtProfilesDetail";
+            txtProfilesDetail.ReadOnly = true;
+            txtProfilesDetail.ScrollBars = ScrollBars.Both;
+            txtProfilesDetail.Size = new Size(343, 261);
+            txtProfilesDetail.TabIndex = 2;
+            // 
+            // txtCommandResult
+            // 
+            txtCommandResult.Location = new Point(19, 366);
+            txtCommandResult.Multiline = true;
+            txtCommandResult.Name = "txtCommandResult";
+            txtCommandResult.ReadOnly = true;
+            txtCommandResult.ScrollBars = ScrollBars.Both;
+            txtCommandResult.Size = new Size(769, 166);
+            txtCommandResult.TabIndex = 3;
+            // 
+            // btnApply
+            // 
+            btnApply.Location = new Point(370, 48);
+            btnApply.Name = "btnApply";
+            btnApply.Size = new Size(75, 33);
+            btnApply.TabIndex = 4;
+            btnApply.Text = "<-";
+            btnApply.UseVisualStyleBackColor = true;
+            btnApply.Click += btnApply_Click;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(11F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(553, 310);
+            ClientSize = new Size(829, 544);
+            Controls.Add(btnApply);
+            Controls.Add(txtCommandResult);
+            Controls.Add(txtProfilesDetail);
             Controls.Add(txtNetworkAdapterSettings);
             Controls.Add(cboProfiles);
             Controls.Add(cboNetworAdapters);
+            DoubleBuffered = true;
+            Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            Margin = new Padding(5, 5, 5, 5);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
@@ -83,5 +127,8 @@
         private ComboBox cboNetworAdapters;
         private TextBox txtNetworkAdapterSettings;
         private ComboBox cboProfiles;
+        private TextBox txtProfilesDetail;
+        private TextBox txtCommandResult;
+        private Button btnApply;
     }
 }
