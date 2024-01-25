@@ -139,7 +139,7 @@ namespace NetworkChamgerApp
 
 
                     //DNS
-                    for (int i=0;i<prof.DNS.Count-1;i++)
+                    for (int i=0;i<=prof.DNS.Count-1;i++)
                     {
                         
                         if (i==0)
