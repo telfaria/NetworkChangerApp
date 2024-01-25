@@ -2,6 +2,7 @@ using NetworkChamgerApp.Model;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 
 namespace NetworkChamgerApp
 {
@@ -38,6 +39,7 @@ namespace NetworkChamgerApp
             string adaptername = cboNetworAdapters.SelectedItem.ToString();
 
             var adapter = NetworkInterface.GetAllNetworkInterfaces().Single(s => s.Name == adaptername);
+            var adapterProp = adapter.GetIPProperties();
 
             txtNetworkAdapterSettings.Clear();
             txtNetworkAdapterSettings.AppendText($"Interface Name : {adapter.Name} {Environment.NewLine}");
@@ -45,8 +47,22 @@ namespace NetworkChamgerApp
             txtNetworkAdapterSettings.AppendText($"MAC Address : {adapter.GetPhysicalAddress()}{Environment.NewLine}");
             foreach (var ipaddr in adapter.GetIPProperties().UnicastAddresses)
             {
-                txtNetworkAdapterSettings.AppendText($"IP Address : {ipaddr.Address}{Environment.NewLine}");
-                txtNetworkAdapterSettings.AppendText($"Network Mask : {ipaddr.IPv4Mask}{Environment.NewLine}");
+                if (ipaddr.Address.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    txtNetworkAdapterSettings.AppendText($"IP Address : {ipaddr.Address}{Environment.NewLine}");
+                    txtNetworkAdapterSettings.AppendText($"Network Mask : {ipaddr.IPv4Mask}{Environment.NewLine}");
+                }
+
+            }
+
+            foreach (var gwaddr in adapterProp.GatewayAddresses)
+            {
+                txtNetworkAdapterSettings.AppendText($"Gateway : {gwaddr.Address}{Environment.NewLine}");
+            }
+
+            foreach (var dnsaddr in adapterProp.DnsAddresses)
+            {
+                txtNetworkAdapterSettings.AppendText($"DNS : {dnsaddr}{Environment.NewLine}");
             }
 
         }
@@ -59,7 +75,7 @@ namespace NetworkChamgerApp
 
             txtProfilesDetail.Clear();
             txtProfilesDetail.AppendText($"IP Address: {prof.IPAddress}{Environment.NewLine}");
-            txtProfilesDetail.AppendText($"Network Mask: {prof.IPAddress}{Environment.NewLine}");
+            txtProfilesDetail.AppendText($"Network Mask: {prof.NetMask}{Environment.NewLine}");
             txtProfilesDetail.AppendText($"Gateway: {prof.IPAddress}{Environment.NewLine}");
             foreach (var dns in prof.DNS)
             {
@@ -81,64 +97,100 @@ namespace NetworkChamgerApp
             //Execute Netsh command (IP Address)
 
             string command = "netsh.exe";
-            string Options = " interface ipv4 set address ";
+            string ipOptions = " interface ipv4 set address ";
+            string dnsOptions = "interface ipv4 set dns ";
 
             if (profiles != null)
             {
 
                 if (prof.IPAddress.ToLower() == "dhcp")
                 {
-                    Options += " \"" + adaptername + "\" ";
-                    Options += $" dhcp ";
+                    //IPAddress:DHCP
+                    ipOptions += " \"" + adaptername + "\" ";
+                    ipOptions += $" dhcp ";
+                    
+                    //DNS:DHCP
+                    dnsOptions += " \"" + adaptername + "\" ";
+                    dnsOptions += "dhcp";
+
+                    txtCommandResult.AppendText($"EXEC -> {command} {ipOptions} {Environment.NewLine}");
+                    ExecuteCommand($"{command} {ipOptions}");
+
+                    txtCommandResult.AppendText($"EXEC -> {command} {dnsOptions} {Environment.NewLine}");
+                    ExecuteCommand($"{command} {dnsOptions}");
+
+
                 }
                 else
                 {
                     //Adapter(Interface) Name
-                    Options += " \"" + adaptername + "\" ";
-                    Options += " static ";
-                    Options += $" {prof.IPAddress} ";
-                    Options += $" {prof.NetMask} ";
-                    Options += $" {prof.GatewayAddress} ";
+                    ipOptions += " \"" + adaptername + "\" ";
+                    
+                    //IPAddress
+                    ipOptions += " static ";
+                    ipOptions += $" {prof.IPAddress} ";
+                    ipOptions += $" {prof.NetMask} ";
+                    ipOptions += $" {prof.GatewayAddress} ";
+                    
+                    txtCommandResult.AppendText($"EXEC -> {command} {ipOptions} {Environment.NewLine}");
+                    ExecuteCommand($"{command} {ipOptions}");
+
+
+                    //DNS
+                    for (int i=0;i<prof.DNS.Count-1;i++)
+                    {
+                        
+                        if (i==0)
+                        {
+                            dnsOptions = "interface ipv4 set dns ";
+                            dnsOptions += " \"" + adaptername + "\" ";
+                            dnsOptions += " static ";
+                            dnsOptions += $"{prof.DNS[i]}";
+
+                        }
+                        else
+                        {
+                            dnsOptions = "interface ipv4 add dns ";
+                            dnsOptions += " \"" + adaptername + "\" ";
+                            dnsOptions += $"{prof.DNS[i]}";
+
+                        }
+
+                        txtCommandResult.AppendText($"EXEC -> {command} {dnsOptions} {Environment.NewLine}");
+                        ExecuteCommand($"{command} {dnsOptions}");
+
+                    }
 
                 }
 
             }
-
-
-
-
-            txtCommandResult.AppendText($"EXEC -> {command} {Options} {Environment.NewLine}");
-
-            ExecuteCommand($"{command} {Options}");
-
-            //Execute Netsh command (DNS)
-
+            
         }
 
         private void ExecuteCommand(string executeCommand)
         {
-            ProcessStartInfo process_start_info_ = new ProcessStartInfo();
+            ProcessStartInfo psi = new ProcessStartInfo();
 
-            process_start_info_.FileName = "cmd";
+            psi.FileName = "cmd";
 
-            process_start_info_.Arguments = "/c " + executeCommand;
+            psi.Arguments = "/c " + executeCommand;
 
             //コンソール開かない。
-            process_start_info_.CreateNoWindow = true;
+            psi.CreateNoWindow = true;
 
             //シェル機能使用しない。
-            process_start_info_.UseShellExecute = false;
+            psi.UseShellExecute = false;
 
             //標準出力をリダイレクト。
-            process_start_info_.RedirectStandardOutput = true;
+            psi.RedirectStandardOutput = true;
 
-            Process process_ = Process.Start(process_start_info_);
+            Process p = Process.Start(psi);
 
             //標準出力を全て取得。
-            string res_ = process_.StandardOutput.ReadToEnd();
+            string res_ = p.StandardOutput.ReadToEnd();
 
-            process_.WaitForExit();
-            process_.Close();
+            p.WaitForExit();
+            p.Close();
 
             //取得した標準出力を表示。
             txtCommandResult.AppendText(res_);
