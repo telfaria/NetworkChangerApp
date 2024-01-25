@@ -23,7 +23,6 @@ namespace NetworkChamgerApp.Model
         {
             public string Name { get; set; }
             public string Description { get; set; }
-            public string AdapterName { get; set; }
             public string IPAddress { get; set; }
             public string NetMask { get; set; }
             public string GatewayAddress { get; set; }
