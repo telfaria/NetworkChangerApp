@@ -74,6 +74,8 @@ namespace NetworkChamgerApp
             var prof = profiles.Profiles.FirstOrDefault(s => s.Name == profile);
 
             txtProfilesDetail.Clear();
+            txtProfilesDetail.AppendText($"Description: {prof.Description}{Environment.NewLine}");
+            txtProfilesDetail.AppendText($"--------{Environment.NewLine}");
             txtProfilesDetail.AppendText($"IP Address: {prof.IPAddress}{Environment.NewLine}");
             txtProfilesDetail.AppendText($"Network Mask: {prof.NetMask}{Environment.NewLine}");
             txtProfilesDetail.AppendText($"Gateway: {prof.IPAddress}{Environment.NewLine}");

@@ -4,7 +4,6 @@
 
             "name": "DHCP",
             "description": "DHCP Setting",
-            "adapterName": "�C�[�T�l�b�g",
             "ipAddress": "dhcp",
             "netMask": "",
             "gatewayAddress": "",
@@ -16,7 +15,6 @@
 
             "name": "Profile1",
             "description": "Description1",
-            "adapterName": "�C�[�T�l�b�g",
             "ipAddress": "192.168.0.23",
             "netMask": "255.255.255.0",
             "gatewayAddress": "192.168.0.254",
@@ -27,7 +25,6 @@
 
             "name": "Profile2",
             "description": "Description2",
-            "adapterName": "�C�[�T�l�b�g",
             "ipAddress": "192.168.1.23",
             "netMask": "255.255.255.0",
             "gatewayAddress": "192.168.1.254",
