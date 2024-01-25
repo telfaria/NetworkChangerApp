@@ -41,7 +41,7 @@
             cboNetworAdapters.DropDownStyle = ComboBoxStyle.DropDownList;
             cboNetworAdapters.FormattingEnabled = true;
             cboNetworAdapters.Location = new Point(19, 48);
-            cboNetworAdapters.Margin = new Padding(5, 5, 5, 5);
+            cboNetworAdapters.Margin = new Padding(5);
             cboNetworAdapters.Name = "cboNetworAdapters";
             cboNetworAdapters.Size = new Size(343, 33);
             cboNetworAdapters.TabIndex = 0;
@@ -50,7 +50,7 @@
             // txtNetworkAdapterSettings
             // 
             txtNetworkAdapterSettings.Location = new Point(19, 97);
-            txtNetworkAdapterSettings.Margin = new Padding(5, 5, 5, 5);
+            txtNetworkAdapterSettings.Margin = new Padding(5);
             txtNetworkAdapterSettings.Multiline = true;
             txtNetworkAdapterSettings.Name = "txtNetworkAdapterSettings";
             txtNetworkAdapterSettings.ReadOnly = true;
@@ -63,7 +63,7 @@
             cboProfiles.DropDownStyle = ComboBoxStyle.DropDownList;
             cboProfiles.FormattingEnabled = true;
             cboProfiles.Location = new Point(445, 48);
-            cboProfiles.Margin = new Padding(5, 5, 5, 5);
+            cboProfiles.Margin = new Padding(5);
             cboProfiles.Name = "cboProfiles";
             cboProfiles.Size = new Size(343, 33);
             cboProfiles.TabIndex = 0;
@@ -72,7 +72,7 @@
             // txtProfilesDetail
             // 
             txtProfilesDetail.Location = new Point(445, 97);
-            txtProfilesDetail.Margin = new Padding(5, 5, 5, 5);
+            txtProfilesDetail.Margin = new Padding(5);
             txtProfilesDetail.Multiline = true;
             txtProfilesDetail.Name = "txtProfilesDetail";
             txtProfilesDetail.ReadOnly = true;
@@ -114,9 +114,9 @@
             DoubleBuffered = true;
             Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.Fixed3D;
-            Margin = new Padding(5, 5, 5, 5);
+            Margin = new Padding(5);
             Name = "Form1";
-            Text = "Form1";
+            Text = "NetworkChangerApp";
             Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();

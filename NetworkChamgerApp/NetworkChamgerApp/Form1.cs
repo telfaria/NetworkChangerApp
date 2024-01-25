@@ -110,7 +110,7 @@ namespace NetworkChamgerApp
                     //IPAddress:DHCP
                     ipOptions += " \"" + adaptername + "\" ";
                     ipOptions += $" dhcp ";
-                    
+
                     //DNS:DHCP
                     dnsOptions += " \"" + adaptername + "\" ";
                     dnsOptions += "dhcp";
@@ -127,22 +127,22 @@ namespace NetworkChamgerApp
                 {
                     //Adapter(Interface) Name
                     ipOptions += " \"" + adaptername + "\" ";
-                    
+
                     //IPAddress
                     ipOptions += " static ";
                     ipOptions += $" {prof.IPAddress} ";
                     ipOptions += $" {prof.NetMask} ";
                     ipOptions += $" {prof.GatewayAddress} ";
-                    
+
                     txtCommandResult.AppendText($"EXEC -> {command} {ipOptions} {Environment.NewLine}");
                     ExecuteCommand($"{command} {ipOptions}");
 
 
                     //DNS
-                    for (int i=0;i<=prof.DNS.Count-1;i++)
+                    for (int i = 0; i <= prof.DNS.Count - 1; i++)
                     {
-                        
-                        if (i==0)
+
+                        if (i == 0)
                         {
                             dnsOptions = "interface ipv4 set dns ";
                             dnsOptions += " \"" + adaptername + "\" ";
@@ -166,7 +166,7 @@ namespace NetworkChamgerApp
                 }
 
             }
-            
+
         }
 
         private void ExecuteCommand(string executeCommand)
