@@ -19,7 +19,7 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore NetworkChangerApp/NetworkChangerApp.csproj
+      run: dotnet restore
 
     - name: Build
       run: dotnet build --configuration Release
