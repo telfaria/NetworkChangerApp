@@ -19,7 +19,7 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore NetworkChangerApp.sln
+      run: dotnet restore NetworkChangerApp/NetworkChangerApp.csproj
 
     - name: Build
       run: dotnet build --configuration Release
@@ -28,7 +28,7 @@ jobs:
       run: |
         dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
         app_version=$(dotnet exec --list-sdks | head -n 1 | awk '{print $1}')
-        app_name="NetworkChangerAoo"
+        app_name="NetworkChangerApp"
         mkdir -p artifacts
         cp -r bin/Release/net6.0-windows/win-x64/publish ./artifacts/$app_name-$app_version
 
