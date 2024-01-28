@@ -19,10 +19,7 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Restore dependencies
-      uses: zyactions/dotnet-restore@v1
-      with:
-        working-directory: NetworkChangerApp
-        workspace: NetworkChangerApp.sln
+      run: dotnet restore NetworkChangerApp.sln
 
     - name: Build
       run: dotnet build --configuration Release
