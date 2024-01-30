@@ -27,7 +27,7 @@ jobs:
     - name: Get version from app.csproj
       id: get_version
       run: |
-        app_version = [xml](Get-Content -Path "NetworkChangerApp.csproj").Project.PropertyGroup.Version
+        app_version = [xml](Get-Content -Path "NetworkChangerApp/NetworkChangerApp.csproj").Project.PropertyGroup.Version
         echo "::set-output name=version::$version"
 
     - name: Publish
