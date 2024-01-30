@@ -34,7 +34,7 @@ jobs:
       run: |
         dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
         # app_version=$(dotnet exec --list-sdks | head -n 1 | awk '{print $1}')
-        app_name="NetworkChangerApp"
+        $app_name="NetworkChangerApp"
         mkdir -p artifacts
         cp -r bin/Release/net6.0-windows/win-x64/publish ./artifacts/$app_name-$app_version
 
