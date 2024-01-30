@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkChamgerApp", "NetworkChamgerApp\NetworkChamgerApp.csproj", "{FA9C8326-0E35-4622-B02E-08B993997D97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkChangerApp", "NetworkChangerApp\NetworkChangerApp.csproj", "{FA9C8326-0E35-4622-B02E-08B993997D97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
