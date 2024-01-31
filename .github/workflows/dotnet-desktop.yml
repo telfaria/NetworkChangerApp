@@ -36,7 +36,7 @@ jobs:
         # app_version=$(dotnet exec --list-sdks | head -n 1 | awk '{print $1}')
         $app_name="NetworkChangerApp"
         mkdir -p artifacts
-        cp -r bin/Release/net6.0-windows/win-x64/publish ./artifacts/$app_name-$app_version
+        cp -r bin/Release/net6.0-windows/publish ./artifacts/$app_name-$app_version
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
