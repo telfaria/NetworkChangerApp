@@ -40,61 +40,59 @@
             // 
             cboNetworAdapters.DropDownStyle = ComboBoxStyle.DropDownList;
             cboNetworAdapters.FormattingEnabled = true;
-            cboNetworAdapters.Location = new Point(19, 48);
-            cboNetworAdapters.Margin = new Padding(5);
+            cboNetworAdapters.Location = new Point(12, 29);
             cboNetworAdapters.Name = "cboNetworAdapters";
-            cboNetworAdapters.Size = new Size(343, 33);
+            cboNetworAdapters.Size = new Size(220, 23);
             cboNetworAdapters.TabIndex = 0;
             cboNetworAdapters.SelectedIndexChanged += cboNetworAdapters_SelectedIndexChanged;
             // 
             // txtNetworkAdapterSettings
             // 
-            txtNetworkAdapterSettings.Location = new Point(19, 97);
-            txtNetworkAdapterSettings.Margin = new Padding(5);
+            txtNetworkAdapterSettings.Location = new Point(12, 58);
             txtNetworkAdapterSettings.Multiline = true;
             txtNetworkAdapterSettings.Name = "txtNetworkAdapterSettings";
             txtNetworkAdapterSettings.ReadOnly = true;
             txtNetworkAdapterSettings.ScrollBars = ScrollBars.Both;
-            txtNetworkAdapterSettings.Size = new Size(343, 261);
+            txtNetworkAdapterSettings.Size = new Size(220, 158);
             txtNetworkAdapterSettings.TabIndex = 1;
             // 
             // cboProfiles
             // 
             cboProfiles.DropDownStyle = ComboBoxStyle.DropDownList;
             cboProfiles.FormattingEnabled = true;
-            cboProfiles.Location = new Point(445, 48);
-            cboProfiles.Margin = new Padding(5);
+            cboProfiles.Location = new Point(283, 29);
             cboProfiles.Name = "cboProfiles";
-            cboProfiles.Size = new Size(343, 33);
+            cboProfiles.Size = new Size(220, 23);
             cboProfiles.TabIndex = 0;
             cboProfiles.SelectedIndexChanged += cboProfiles_SelectedIndexChanged;
             // 
             // txtProfilesDetail
             // 
-            txtProfilesDetail.Location = new Point(445, 97);
-            txtProfilesDetail.Margin = new Padding(5);
+            txtProfilesDetail.Location = new Point(283, 58);
             txtProfilesDetail.Multiline = true;
             txtProfilesDetail.Name = "txtProfilesDetail";
             txtProfilesDetail.ReadOnly = true;
             txtProfilesDetail.ScrollBars = ScrollBars.Both;
-            txtProfilesDetail.Size = new Size(343, 261);
+            txtProfilesDetail.Size = new Size(220, 158);
             txtProfilesDetail.TabIndex = 2;
             // 
             // txtCommandResult
             // 
-            txtCommandResult.Location = new Point(19, 366);
+            txtCommandResult.Location = new Point(12, 220);
+            txtCommandResult.Margin = new Padding(2, 2, 2, 2);
             txtCommandResult.Multiline = true;
             txtCommandResult.Name = "txtCommandResult";
             txtCommandResult.ReadOnly = true;
             txtCommandResult.ScrollBars = ScrollBars.Both;
-            txtCommandResult.Size = new Size(769, 166);
+            txtCommandResult.Size = new Size(491, 101);
             txtCommandResult.TabIndex = 3;
             // 
             // btnApply
             // 
-            btnApply.Location = new Point(370, 48);
+            btnApply.Location = new Point(235, 29);
+            btnApply.Margin = new Padding(2, 2, 2, 2);
             btnApply.Name = "btnApply";
-            btnApply.Size = new Size(75, 33);
+            btnApply.Size = new Size(48, 20);
             btnApply.TabIndex = 4;
             btnApply.Text = "<-";
             btnApply.UseVisualStyleBackColor = true;
@@ -102,9 +100,9 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(11F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(829, 544);
+            ClientSize = new Size(528, 326);
             Controls.Add(btnApply);
             Controls.Add(txtCommandResult);
             Controls.Add(txtProfilesDetail);
@@ -112,9 +110,7 @@
             Controls.Add(cboProfiles);
             Controls.Add(cboNetworAdapters);
             DoubleBuffered = true;
-            Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.Fixed3D;
-            Margin = new Padding(5);
             Name = "Form1";
             Text = "NetworkChangerApp";
             Load += Form1_Load;

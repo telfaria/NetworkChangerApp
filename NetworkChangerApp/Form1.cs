@@ -186,6 +186,12 @@ namespace NetworkChamgerApp
             //標準出力をリダイレクト。
             psi.RedirectStandardOutput = true;
 
+            //UAC昇格させる
+            psi.Verb = "runas";
+
+            psi.ErrorDialog = true;
+            psi.ErrorDialogParentHandle = this.Handle;
+
             Process p = Process.Start(psi);
 
             //標準出力を全て取得。
@@ -197,6 +203,9 @@ namespace NetworkChamgerApp
             //取得した標準出力を表示。
             txtCommandResult.AppendText(res_);
 
+            //コマンド終了を表示
+            txtCommandResult.AppendText($"<-EXEC END{Environment.NewLine}");
+            txtCommandResult.AppendText(Environment.NewLine);
         }
     }
 }
