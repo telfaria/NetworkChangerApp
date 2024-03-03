@@ -36,7 +36,7 @@ jobs:
         # app_version=$(dotnet exec --list-sdks | head -n 1 | awk '{print $1}')
         $app_name="NetworkChangerApp"
         mkdir -p artifacts
-        cp -r bin/Release/net6.0-windows/win-x64/publish ./artifacts/$app_name-$app_version
+        cp -r NetworkChangerApp/bin/Release/net6.0-windows/win-x64/publish ./artifacts/$app_name-$app_version
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
@@ -61,8 +61,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        tag_name: v1.0.0 # ${{ github.ref }}
+        release_name: Release v1.0.0 # ${{ github.ref }}
         body: |
           Release of the application
         draft: false
@@ -76,5 +76,6 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./artifacts/*.zip
-        asset_name: NetworkChangerApp-${{ github.ref }}.zip
+        # asset_name: NetworkChangerApp-${{ github.ref }}.zip
+        asset_name: NetworkChangerApp-v1.0.0.zip
         asset_content_type: application/zip
