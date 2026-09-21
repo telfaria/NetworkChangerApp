@@ -1,8 +1,10 @@
 using NetworkChamgerApp.Model;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Globalization;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Text;
 
 namespace NetworkChamgerApp
 {
@@ -172,10 +174,11 @@ namespace NetworkChamgerApp
         private void ExecuteCommand(string executeCommand)
         {
             ProcessStartInfo psi = new ProcessStartInfo();
+            //Encoding consoleEncoding = Encoding.GetEncoding(CultureInfo.CurrentCulture.TextInfo.OEMCodePage);
 
             psi.FileName = "cmd";
 
-            psi.Arguments = "/c " + executeCommand;
+            psi.Arguments = "/c chcp 65001 > nul & " + executeCommand;
 
             //コンソール開かない。
             psi.CreateNoWindow = true;
