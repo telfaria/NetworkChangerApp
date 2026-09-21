@@ -8,74 +8,70 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    outputs:
+      app_version: ${{ steps.get_version.outputs.version }}
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '6.0.x'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '6.0.x'
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore
 
-    - name: Build
-      run: dotnet build --configuration Release
+      - name: Build
+        run: dotnet build --configuration Release
 
-    - name: Get version from app.csproj
-      id: get_version
-      run: |
-       $app_version = [xml](Get-Content -Path "NetworkChangerApp/NetworkChangerApp.csproj").Project.PropertyGroup.Version
-        echo "::set-output name=version::$app_version"
+      - name: Get version from app.csproj
+        id: get_version
+        shell: pwsh
+        run: |
+          [xml]$project = Get-Content -Path "NetworkChangerApp/NetworkChangerApp.csproj"
+          $appVersion = $project.Project.PropertyGroup.Version
+          "version=$appVersion" >> $env:GITHUB_OUTPUT
 
-    - name: Publish
-      run: |
-        dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
-        # app_version=$(dotnet exec --list-sdks | head -n 1 | awk '{print $1}')
-        $app_name="NetworkChangerApp"
-        mkdir -p artifacts
-        cp -r NetworkChangerApp/bin/Release/net6.0-windows/win-x64/publish ./artifacts/$app_name-$app_version
+      - name: Publish and package
+        shell: pwsh
+        run: |
+          $appName = "NetworkChangerApp"
+          $appVersion = "${{ steps.get_version.outputs.version }}"
+          $publishDir = "NetworkChangerApp/bin/Release/net6.0-windows/win-x64/publish"
+          $artifactDir = "artifacts"
+          $zipPath = "$artifactDir/$appName-$appVersion.zip"
 
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: app
-        path: artifacts
+          dotnet publish NetworkChangerApp/NetworkChangerApp.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
+
+          New-Item -ItemType Directory -Path $artifactDir -Force | Out-Null
+          Compress-Archive -Path "$publishDir/*" -DestinationPath $zipPath -Force
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app
+          path: artifacts/*.zip
 
   release:
     needs: build
     runs-on: windows-latest
+    permissions:
+      contents: write
 
     steps:
-    - name: Download Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: app
-        path: artifacts
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app
+          path: artifacts
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: v1.0.0 # ${{ github.ref }}
-        release_name: Release v1.0.0 # ${{ github.ref }}
-        body: |
-          Release of the application
-        draft: false
-        prerelease: false
-
-    - name: Upload Release Asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./artifacts/*.zip
-        # asset_name: NetworkChangerApp-${{ github.ref }}.zip
-        asset_name: NetworkChangerApp-v1.0.0.zip
-        asset_content_type: application/zip
+      - name: Create Release and upload asset
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.build.outputs.app_version }}
+          name: Release v${{ needs.build.outputs.app_version }}
+          body: |
+            Release of the application
+          files: artifacts/*.zip
