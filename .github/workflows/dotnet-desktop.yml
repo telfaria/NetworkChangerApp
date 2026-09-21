@@ -30,8 +30,10 @@ jobs:
         id: get_version
         shell: pwsh
         run: |
-          [xml]$project = Get-Content -Path "NetworkChangerApp/NetworkChangerApp.csproj"
-          $appVersion = $project.Project.PropertyGroup.Version
+          $appVersion = (dotnet msbuild NetworkChangerApp/NetworkChangerApp.csproj -nologo -getProperty:Version | Select-Object -Last 1).Trim()
+          if ([string]::IsNullOrWhiteSpace($appVersion)) {
+            throw "Failed to resolve Version from csproj."
+          }
           "version=$appVersion" >> $env:GITHUB_OUTPUT
 
       - name: Publish and package
