@@ -7,6 +7,12 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <VersionPrefix>1.0.1</VersionPrefix>
+    <BuildDate>$([System.DateTime]::Now.ToString("yyyyMMdd"))</BuildDate>
+    <Version>$(VersionPrefix).$(BuildDate)</Version>
+    <FileVersion>$(Version)</FileVersion>
+    <InformationalVersion>$(Version)</InformationalVersion>
+    <AssemblyVersion>$(VersionPrefix).0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
