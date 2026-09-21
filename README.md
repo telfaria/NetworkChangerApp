@@ -53,6 +53,10 @@ These profiles provide examples of both DHCP configuration and static IP configu
 ## Operation
 The application executes the Netsh command based on the values defined in the profile. The results of the changes are displayed in the message box at the bottom of the screen.
 
+## Release Artifact (GitHub Actions)
+The automated release workflow creates a ZIP from published output.
+To keep the release package minimal, debug-related files are excluded (for example: `.pdb`, `.xml`).
+
 # “ú–{Œê
 
 # NetworkChangerApp
@@ -103,4 +107,8 @@ NetworkChangerApp‚ÍAƒlƒbƒgƒ[ƒNƒAƒ_ƒvƒ^‚ÌIPƒAƒhƒŒƒX‚È‚Ç‚Ìƒlƒbƒgƒ[ƒNİ’è‚ğ•Ï
 
 ## “®ì
 ƒvƒƒtƒ@ƒCƒ‹‚Å’è‹`‚³‚ê‚½’l‚ğ‚à‚Æ‚ÉANetshƒRƒ}ƒ“ƒh‚ğÀs‚µ‚Ü‚·B•ÏX‚ÌŒ‹‰Ê‚Í‰æ–Ê‰º•”‚Ìo—ÍƒƒbƒZ[ƒWƒ{ƒbƒNƒX‚É•\¦‚³‚ê‚Ü‚·B
+
+## ƒŠƒŠ[ƒX¬‰Ê•¨iGitHub Actionsj
+©“®ƒŠƒŠ[ƒXƒ[ƒNƒtƒ[‚Å‚ÍApublish o—Í‚©‚ç ZIP ‚ğì¬‚µ‚Ü‚·B
+ƒŠƒŠ[ƒXƒpƒbƒP[ƒW‚ğÅ¬\¬‚É‚·‚é‚½‚ßAƒfƒoƒbƒOŠÖ˜Aƒtƒ@ƒCƒ‹i—á: `.pdb`, `.xml`j‚ÍœŠO‚µ‚Ü‚·B
 
